@@ -1,0 +1,4 @@
+# Normaliza finales de línea; los .bat necesitan CRLF para ejecutarse bien en Windows.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.pdf binary

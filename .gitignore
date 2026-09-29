@@ -1,0 +1,22 @@
+# Entorno de Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Archivos de prueba y resultados: pueden contener datos personales. Nunca versionar.
+muestras/
+output/
+salida*/
+*.pdf
+*.md
+!README.md
+!docs/**/*.md
+
+# Editor / sistema operativo
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
