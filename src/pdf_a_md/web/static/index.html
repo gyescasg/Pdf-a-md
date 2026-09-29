@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDF a Markdown</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='3' width='22' height='26' rx='2' fill='%231E2A5E'/%3E%3Crect x='9' y='10' width='14' height='3' fill='%23F2CF45'/%3E%3Crect x='9' y='16' width='10' height='2' fill='%23fff'/%3E%3Crect x='9' y='21' width='12' height='2' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">PDF <span class="brand-to">a</span> Markdown</h1>
+
+    <fieldset class="mode" aria-describedby="mode-help">
+      <legend class="visually-hidden">Cómo exportar</legend>
+      <label><input type="radio" name="mode" value="single" checked> Un archivo por PDF</label>
+      <label><input type="radio" name="mode" value="merged"> Todo en uno</label>
+    </fieldset>
+    <p id="mode-help" class="visually-hidden">
+      "Todo en uno" une los documentos en el orden de la lista, cada uno bajo un título con su nombre de archivo.
+    </p>
+
+    <div class="actions">
+      <button type="button" id="copy-btn" class="btn" disabled>Copiar</button>
+      <button type="button" id="download-btn" class="btn btn-primary" disabled>Descargar</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="sheets" aria-labelledby="sheets-title">
+      <h2 id="sheets-title" class="visually-hidden">Documentos</h2>
+
+      <label id="dropzone" class="dropzone" for="file-input">
+        <input id="file-input" type="file" accept=".pdf,application/pdf" multiple class="visually-hidden">
+        <span class="dropzone-sheet" aria-hidden="true"></span>
+        <span class="dropzone-text">
+          <strong>Suelta tus PDF aquí</strong>
+          <span>o haz clic para elegirlos. Puedes añadir varios.</span>
+        </span>
+      </label>
+
+      <div class="list-head" id="list-head" hidden>
+        <p class="list-hint">Arrastra para cambiar el orden. También puedes usar Alt + ↑ / ↓.</p>
+        <button type="button" id="clear-btn" class="link-btn">Quitar todos</button>
+      </div>
+
+      <ol id="file-list" class="file-list" aria-label="Documentos en orden"></ol>
+
+      <div id="scale" class="scale" hidden aria-live="polite">
+        <h3 class="scale-title">Peso total</h3>
+        <div class="scale-row">
+          <span class="scale-label">PDF</span>
+          <span class="scale-track"><span id="scale-pdf" class="scale-bar scale-bar-pdf"></span></span>
+          <span id="scale-pdf-value" class="scale-value"></span>
+        </div>
+        <div class="scale-row">
+          <span class="scale-label">Markdown</span>
+          <span class="scale-track"><span id="scale-md" class="scale-bar scale-bar-md"></span></span>
+          <span id="scale-md-value" class="scale-value"></span>
+        </div>
+        <p id="scale-summary" class="scale-summary"></p>
+      </div>
+    </section>
+
+    <section class="preview" aria-labelledby="preview-title">
+      <div class="preview-head">
+        <h2 id="preview-title" class="preview-title">Vista previa</h2>
+        <p id="preview-meta" class="preview-meta"></p>
+        <div class="view-toggle" role="group" aria-label="Formato de la vista previa">
+          <button type="button" data-view="source" aria-pressed="true">Markdown</button>
+          <button type="button" data-view="rendered" aria-pressed="false">Vista de lectura</button>
+        </div>
+      </div>
+      <div id="preview-empty" class="preview-empty">
+        <p>Aquí verás el Markdown de cada documento.</p>
+        <p>Con "Todo en uno", verás el documento combinado en el orden de la lista.</p>
+      </div>
+      <pre id="preview-body" class="preview-body" tabindex="0" hidden></pre>
+      <article id="preview-rendered" class="preview-rendered" tabindex="0" hidden></article>
+    </section>
+  </main>
+
+  <div id="drop-overlay" class="drop-overlay" hidden aria-hidden="true">
+    <p>Suelta para añadir</p>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <template id="file-item-template">
+    <li class="file" draggable="true" tabindex="0">
+      <span class="file-grip" aria-hidden="true"></span>
+      <div class="file-main">
+        <p class="file-name"></p>
+        <p class="file-status"></p>
+        <div class="weight-row" aria-hidden="true">
+          <div class="weight">
+            <span class="weight-bar weight-bar-pdf"></span>
+            <span class="weight-bar weight-bar-md"></span>
+          </div>
+          <span class="weight-saving"></span>
+        </div>
+      </div>
+      <div class="file-tools">
+        <button type="button" class="icon-btn" data-action="up" aria-label="Subir">↑</button>
+        <button type="button" class="icon-btn" data-action="down" aria-label="Bajar">↓</button>
+        <button type="button" class="icon-btn" data-action="remove" aria-label="Quitar">×</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="/static/app.js" type="module"></script>
+</body>
+</html>

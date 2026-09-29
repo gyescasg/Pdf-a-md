@@ -40,6 +40,27 @@ uv sync
 
 ## Uso
 
+### Interfaz gráfica
+
+En Windows, haz doble clic en `iniciar.bat`. En cualquier sistema operativo:
+
+```bash
+uv run pdf-a-md-web
+```
+
+Se abre el navegador en `http://127.0.0.1:8765`. Desde ahí puedes:
+
+- Arrastrar uno o varios PDF (o elegirlos con el explorador de archivos).
+- Reordenarlos arrastrando, con los botones ↑ ↓ o con `Alt + ↑ / ↓`.
+- Ver el resultado como Markdown resaltado o como vista de lectura, con el peso y los tokens
+  estimados de cada documento.
+- Elegir **Un archivo por PDF** (descarga un `.md` o un `.zip`) o **Todo en uno** (un único
+  `.md` combinado, con vista previa en vivo).
+- Copiar el resultado al portapapeles para pegarlo directamente en una herramienta de IA.
+
+El servidor solo escucha en `127.0.0.1`, así que no es accesible desde otros equipos de la red.
+Opciones: `--port`, `--engine` y `--no-browser`.
+
 ### Línea de comandos
 
 ```bash
@@ -96,13 +117,16 @@ reemplazarse sin modificar el resto de la aplicación.
 src/pdf_a_md/
 ├── core/        # Dominio: modelos, puerto del conversor, validación, normalización y combinación
 ├── adapters/    # Implementación del conversor sobre PyMuPDF4LLM
+├── web/         # API local (FastAPI) e interfaz web sin dependencias de frontend
 └── cli.py       # Interfaz de línea de comandos
 ```
+
+La interfaz web no usa frameworks ni CDN: funciona sin conexión a internet.
 
 ## Hoja de ruta
 
 - [x] Núcleo de conversión y línea de comandos
-- [ ] Interfaz web local con carga múltiple y orden por arrastre
+- [x] Interfaz web local con carga múltiple y orden por arrastre
 - [ ] Ejecutable para Windows
 
 ## Privacidad

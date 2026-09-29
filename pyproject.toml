@@ -16,6 +16,9 @@ classifiers = [
 dependencies = [
     "pymupdf4llm>=1.28",
     "pymupdf-layout>=1.28",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.54.0",
+    "python-multipart>=0.0.32",
 ]
 
 [project.urls]
@@ -24,6 +27,7 @@ Issues = "https://github.com/gyescasg/Pdf-a-md/issues"
 
 [project.scripts]
 pdf-a-md = "pdf_a_md.cli:main"
+pdf-a-md-web = "pdf_a_md.web.server:main"
 
 [build-system]
 requires = ["hatchling"]
