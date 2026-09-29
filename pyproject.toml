@@ -1,0 +1,37 @@
+[project]
+name = "pdf-a-md"
+version = "0.1.0"
+description = "Convierte archivos PDF a Markdown, de forma individual o combinada, para usarlos con IA."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+keywords = ["pdf", "markdown", "llm", "converter"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Text Processing :: Markup :: Markdown",
+]
+dependencies = [
+    "pymupdf4llm>=1.28",
+    "pymupdf-layout>=1.28",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.54.0",
+    "python-multipart>=0.0.32",
+]
+
+[project.urls]
+Repository = "https://github.com/gyescasg/Pdf-a-md"
+Issues = "https://github.com/gyescasg/Pdf-a-md/issues"
+
+[project.scripts]
+pdf-a-md = "pdf_a_md.cli:main"
+pdf-a-md-web = "pdf_a_md.web.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pdf_a_md"]
